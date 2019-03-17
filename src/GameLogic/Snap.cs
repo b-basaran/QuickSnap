@@ -92,7 +92,8 @@ namespace CardGames.GameLogic
 				_started = true;
 				_deck.Shuffle ();		// Return the cards and shuffle
 
-				FlipNextCard ();		// Flip the first card...
+				FlipNextCard ();        // Flip the first card...
+				_gameTimer.Start();
 			}
 		}
 			
@@ -102,7 +103,8 @@ namespace CardGames.GameLogic
 			{
 				_topCards [0] = _topCards [1];		// move top to card 2
 				_topCards [1] = _deck.Draw ();		// get a new top card
-				_topCards[1].TurnOver();			// reveal card
+				_topCards[1].TurnOver();
+				// reveal card
 			}
 		}
 
@@ -113,6 +115,11 @@ namespace CardGames.GameLogic
 		public void Update()
 		{
 			//TODO: implement update to automatically slip cards!
+			if (_gameTimer.Ticks > _flipTime) 
+			{
+				_gameTimer.Reset();
+				FlipNextCard();
+			}
 		}
 
 		/// <summary>
