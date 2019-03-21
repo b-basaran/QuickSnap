@@ -12,7 +12,7 @@ namespace CardGames.GameLogic
 	/// </summary>
 	public class Deck
 	{
-        private readonly Card[] 	_cards = new Card[52];
+        private readonly Card[] _cards = new Card[52];
         private int 	_topCard;
      
 		/// <summary>
@@ -54,7 +54,22 @@ namespace CardGames.GameLogic
 		/// </summary>
 		public void Shuffle()
 		{
-			//TODO: implement shuffle!
+			for (int i = 0; i < 52; i++) 
+			{
+				if (_cards [i].FaceUp) _cards[i].TurnOver();
+
+			}
+
+			Random rnd = new Random ();
+
+			for (int i = 0; i < 52 - 1; i++) 
+			{
+				int rndIdx = rnd.Next (52 - i);
+				Card temp = _cards[i];
+				_cards [i] = _cards[i + rndIdx];
+				_cards[i + rndIdx] = temp;
+			}
+			_topCard = 0;
 		}
         
 		/// <summary>
